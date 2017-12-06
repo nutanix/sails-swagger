@@ -340,12 +340,16 @@ var Transformer = {
         var route = sails.config.routes[methodGroup.method + ' ' + methodGroup.path];
         if (!route) return;
 
-        var pattern = /(.+)Controller/;
+        // MyNutanix customization - removed Controller from pattern
+        //var pattern = /(.+)Controller/;
+        var pattern = /(.+)/;
         var controller = route.controller || _lodash2['default'].isString(route) && route.split('.')[0];
 
         if (!controller) return;
 
-        var _Controller$exec = /(.+)Controller/.exec(controller);
+        // MyNutanix customization - removed Controller from pattern
+        // var _Controller$exec = /(.+)Controller/.exec(controller);
+        var _Controller$exec = /(.+)/.exec(controller);
 
         var _Controller$exec2 = _slicedToArray(_Controller$exec, 2);
 
