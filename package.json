@@ -1,62 +1,16 @@
 {
-  "_args": [
-    [
-      {
-        "raw": "sails-swagger@http://registry.npmjs.org/sails-swagger/-/sails-swagger-0.5.1.tgz",
-        "scope": null,
-        "escapedName": "sails-swagger",
-        "name": "sails-swagger",
-        "rawSpec": "http://registry.npmjs.org/sails-swagger/-/sails-swagger-0.5.1.tgz",
-        "spec": "http://registry.npmjs.org/sails-swagger/-/sails-swagger-0.5.1.tgz",
-        "type": "remote"
-      },
-      "/Users/raja.madhu/projects/gk"
-    ]
-  ],
-  "_from": "sails-swagger@>=0.5.1 <0.6.0",
-  "_id": "sails-swagger@0.5.1",
-  "_inCache": true,
-  "_location": "/sails-swagger",
-  "_phantomChildren": {},
-  "_requested": {
-    "raw": "sails-swagger@http://registry.npmjs.org/sails-swagger/-/sails-swagger-0.5.1.tgz",
-    "scope": null,
-    "escapedName": "sails-swagger",
-    "name": "sails-swagger",
-    "rawSpec": "http://registry.npmjs.org/sails-swagger/-/sails-swagger-0.5.1.tgz",
-    "spec": "http://registry.npmjs.org/sails-swagger/-/sails-swagger-0.5.1.tgz",
-    "type": "remote"
-  },
-  "_requiredBy": [
-    "/"
-  ],
-  "_resolved": "http://registry.npmjs.org/sails-swagger/-/sails-swagger-0.5.1.tgz",
-  "_shasum": "1ee8bec6495e1ed3e79fc588f3630a70e2ff1278",
-  "_shrinkwrap": null,
-  "_spec": "sails-swagger@http://registry.npmjs.org/sails-swagger/-/sails-swagger-0.5.1.tgz",
-  "_where": "/Users/raja.madhu/projects/gk",
-  "author": {
-    "name": "Travis Webb",
-    "email": "me@traviswebb.com"
-  },
-  "bugs": {
-    "url": "https://github.com/tjwebb/sails-swagger/issues"
-  },
-  "dependencies": {
-    "hoek": "^2.14.0",
-    "lodash": "^3.10.1",
-    "marlinspike": "^0.12.10"
-  },
+  "name": "sails-swagger",
+  "version": "0.5.1",
   "description": "swagger.io integration for sails.js",
-  "devDependencies": {
-    "babel": "^5.8.21",
-    "gulp": "^3.9.0",
-    "gulp-babel": "^5.2.1",
-    "mocha": "^2.2.5",
-    "sails": "github:balderdashy/sails",
-    "sails-disk": "^0.10.8"
+  "main": "dist/api/hooks/swagger/index.js",
+  "scripts": {
+    "test": "gulp && mocha --reporter spec --compilers js:babel/register",
+    "prepublish": "gulp"
   },
-  "homepage": "https://github.com/tjwebb/sails-swagger",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tjwebb/sails-swagger.git"
+  },
   "keywords": [
     "sails",
     "sailsjs",
@@ -66,23 +20,28 @@
     "sdk",
     "documentation"
   ],
+  "author": "Travis Webb <me@traviswebb.com>",
   "license": "MIT",
-  "main": "dist/api/hooks/swagger/index.js",
-  "name": "sails-swagger",
-  "optionalDependencies": {},
-  "readme": "# <img src=\"http://cdn.tjw.io/images/sails-logo.png\" height='43px' /> swagger\n\n[![NPM version][npm-image]][npm-url]\n[![Build status][ci-image]][ci-url]\n[![Dependency Status][daviddm-image]][daviddm-url]\n[![Code Climate][codeclimate-image]][codeclimate-url]\n\n[swagger.io](http://swagger.io/) (v2.0) hook for [Sails](http://sailsjs.org). The application's models, controllers, and routes are aggregated and transformed into a Swagger Document. Supports the Swagger 2.0 specification.\n\n## Install\n\n```sh\n$ npm install sails-swagger --save\n```\n\n## Configuration\n```js\n// config/swagger.js\nmodule.exports.swagger = {\n  /**\n   * require() the package.json file for your Sails app.\n   */\n  pkg: require('../package'),\n  ui: {\n    url: 'http://swaggerui.balderdash.io'\n  }\n};\n```\n\n## License\nMIT\n\n## Maintained By\n##### [<img src='http://i.imgur.com/zM0ynQk.jpg' height='34px'>](http://balderdash.co)\n\n[npm-image]: https://img.shields.io/npm/v/sails-swagger.svg?style=flat-square\n[npm-url]: https://npmjs.org/package/sails-swagger\n[ci-image]: https://img.shields.io/travis/tjwebb/sails-swagger/master.svg?style=flat-square\n[ci-url]: https://travis-ci.org/tjwebb/sails-swagger\n[daviddm-image]: http://img.shields.io/david/tjwebb/sails-swagger.svg?style=flat-square\n[daviddm-url]: https://david-dm.org/tjwebb/sails-swagger\n[codeclimate-image]: https://img.shields.io/codeclimate/github/tjwebb/sails-swagger.svg?style=flat-square\n[codeclimate-url]: https://codeclimate.com/github/tjwebb/sails-swagger\n",
-  "readmeFilename": "README.md",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/tjwebb/sails-swagger.git"
+  "bugs": {
+    "url": "https://github.com/tjwebb/sails-swagger/issues"
+  },
+  "homepage": "https://github.com/tjwebb/sails-swagger",
+  "devDependencies": {
+    "babel": "^5.8.21",
+    "gulp": "^3.9.0",
+    "gulp-babel": "^5.2.1",
+    "mocha": "^2.2.5",
+    "sails": "balderdashy/sails",
+    "sails-disk": "^0.10.8"
+  },
+  "dependencies": {
+    "hoek": "^2.14.0",
+    "lodash": "^3.10.1",
+    "marlinspike": "^0.12.10",
+    "pluralize": "^1.2.1"
   },
   "sails": {
     "isHook": true,
     "hookName": "swagger"
-  },
-  "scripts": {
-    "prepublish": "gulp",
-    "test": "gulp && mocha --reporter spec --compilers js:babel/register"
-  },
-  "version": "0.5.1"
+  }
 }

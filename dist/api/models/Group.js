@@ -1,18 +1,34 @@
 /**
-* Group.js
-*
-* @description :: TODO: You might write a short summary of how this model works and what it represents here.
-* @docs        :: http://sailsjs.org/#!documentation/models
-*/
+ * Group.js
+ *
+ * @description :: TODO: You might write a short summary of how this model works and what it represents here.
+ * @docs        :: http://sailsjs.org/#!documentation/models
+ */
 
 'use strict';
 
 module.exports = {
 
-  attributes: {
-    contacts: {
-      collection: 'Contact'
-    }
+    testInstance: function testInstance() {
+        return {
+            name: 'Group Name',
+            contacts: [{
+                name: 'Contact 1'
+            }, {
+                name: 'Contact 2'
+            }]
+        };
+    },
 
-  }
+    attributes: {
+        name: {
+            type: 'string',
+            defaultsTo: 'Group Name'
+        },
+        contacts: {
+            collection: 'Contact',
+            via: 'group'
+        }
+
+    }
 };
