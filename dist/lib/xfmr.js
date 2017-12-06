@@ -220,7 +220,32 @@ var Transformer = {
         var parentModelName = _path$split2[1];
         var parentId = _path$split2[2];
         var childAttributeName = _path$split2[3];
-        var childId = _path$split2[4];
+        var childId = _path$split2[4] || '';
+
+        /**
+        *
+        * MyNutanix customization - Since we use identity property in the controller
+        * the below changes are required.
+        * This is to get controller identity from the path
+        *   Eg: /api/v1/users - Controller identity is v1/users
+        *   /api/v1/ct/tenants - Controller identity is v1/cttenants
+        *
+        */
+        var controllerName = parentId + '/' + childAttributeName
+        var controller = sails.controllers[controllerName]
+        if (!controller && parentId && childAttributeName) {
+            controllerName = parentId + '/' + _pluralize2['default'].singular(childAttributeName)
+            controller = sails.controllers[controllerName]
+            if (!controller && childId) {
+                controllerName = parentId + '/' + childAttributeName + '/' + childId
+                controller = sails.controllers[controllerName]
+            }
+        }
+        if (controller) {
+            var modelName = controller._config.model
+            return sails.models[modelName]
+        }
+        /* Mynutanix customization - end */
 
         var parentModel = sails.models[parentModelName] || parentModelName ? sails.models[_pluralize2['default'].singular(parentModelName)] : undefined;
         var childAttribute = _lodash2['default'].get(parentModel, ['attributes', childAttributeName]);
@@ -281,7 +306,12 @@ var Transformer = {
      * grouping of operations by resources or any other qualifier.
      */
     getPathTags: function getPathTags(sails, methodGroup) {
-        return _lodash2['default'].unique(_lodash2['default'].compact([Transformer.getPathModelTag(sails, methodGroup), Transformer.getPathControllerTag(sails, methodGroup), Transformer.getControllerFromRoute(sails, methodGroup)]));
+        // return _lodash2['default'].unique(_lodash2['default'].compact([Transformer.getPathModelTag(sails, methodGroup), Transformer.getPathControllerTag(sails, methodGroup), Transformer.getControllerFromRoute(sails, methodGroup)]));
+        
+        // MyNutanix Customization - Create controller tags first and then model tags.
+        // Because controller tag name is more readable than model name.
+        // If the api has multiple tags, we should only under first tag -> we have this restriction in swagger-ui.js
+        return _lodash2['default'].unique(_lodash2['default'].compact([Transformer.getPathControllerTag(sails, methodGroup), Transformer.getControllerFromRoute(sails, methodGroup), Transformer.getPathModelTag(sails, methodGroup)]));
     },
 
     getPathModelTag: function getPathModelTag(sails, methodGroup) {
